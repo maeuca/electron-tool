@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Network</title>
+    <link rel="stylesheet" href="photon/css/photon.css">
+</head>
+<body>
+
+
+<div class="window">
+    <header class="toolbar toolbar-header">
+
+        <div class="toolbar-actions">
+            <div class="btn-group">
+                <button class="btn btn-default" onclick="renderer.navigate('login')">
+                    <span class="icon icon-home"></span>
+                </button>
+                <button class="btn btn-default" onclick="renderer.navigate('networks')">
+                    <span class="icon icon-cog"></span>
+                </button>
+                <button class="btn btn-default" onclick="renderer.add(event)">
+                    <span class="icon icon-plus-circled"></span>
+                </button>
+                <button class="btn btn-default">
+                    <span class="icon icon-folder" onclick="renderer.openFile()"></span>
+                </button>
+            </div>
+            <img class="img-circle pull-right media-object" src="print-icon.png" width="24" height="24">
+        </div>
+    </header>
+
+    <div class="window-content">
+
+        <div id="networks-panel">
+
+            <table class="list-group table-striped">
+
+                <th colspan="4" class="list-group-header">
+                    <input class="form-control" type="text" id="networks-filter" placeholder="Search" onkeyup="renderer.filterRows( this )">
+                </th>
+            </table>
+        </div>
+
+        <div id="network-add-panel" style="display:none">
+            <form>
+                <div class="form-group">
+                    <input type="text" id="network_name" class="form-control" value="" placeholder="Name">
+                    <input type="text" id="external_ip" class="form-control" value="" placeholder="Network IP">
+                    <input type="text" id="internal_ip" class="form-control" value="127.0.0.1" placeholder="Service IP">
+                    <input type="text" id="service_port" class="form-control" value="5984" placeholder="Service Port">
+                </div>
+
+                <div class="form-group">
+                    <select id="driver" class="form-control">
+                    <option value="null">Select Driver</option>
+                    <option value="couch">Couch</option>
+                    <option value="mongo">Mongo</option>
+                    </select>
+                </div>
+
+                <div class="from-group">
+                    <button class="btn btn-default" onclick="renderer.cancel(event)">
+                        Cancel
+                    </button>
+                    <button class="btn btn-default pull-right" onclick="renderer.save(event)">
+                        Save
+                    </button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+
+    <footer class="toolbar toolbar-footer">
+        <div class="toolbar-actions">
+            <button class="btn btn-default" onclick="renderer.logout()">
+                Logout
+            </button>
+            <button class="btn btn-default pull-right" onclick="renderer.networks()">
+                Refresh
+            </button>
+        </div>
+    </footer>
+</div>
+
+
+</body>
+
+</html>
+
+<script>
+   const Networks = require('./renderers/Networks')
+    const renderer = new Networks()
+</script>

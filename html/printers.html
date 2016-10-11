@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Printers</title>
+    <link rel="stylesheet" href="photon/css/photon.css">
+</head>
+<body>
+
+
+<div class="window">
+    <header class="toolbar toolbar-header">
+
+        <div class="toolbar-actions">
+            <div class="btn-group">
+                <button class="btn btn-default" onclick="renderer.navigate('printers')">
+                    <span class="icon icon-print"></span>
+                </button>
+                <button class="btn btn-default" onclick="renderer.navigate('networks')">
+                    <span class="icon icon-cog"></span>
+                </button>
+                <button class="btn btn-default" onclick="renderer.add(event)">
+                    <span class="icon icon-plus-circled"></span>
+                </button>
+                <button class="btn btn-default">
+                    <span class="icon icon-folder" onclick="renderer.openFile()"></span>
+                </button>
+            </div>
+            <img class="img-circle pull-right media-object" src="print-icon.png" width="24" height="24">
+        </div>
+    </header>
+
+    <div class="window-content">
+
+        <div id="printers-panel">
+
+            <table class="list-group table-striped">
+
+                <th colspan="3" class="list-group-header">
+                    <input class="form-control" type="text" id="printers-filter" placeholder="Search" onkeyup="renderer.filterRows( this )">
+                </th>
+            </table>
+        </div>
+
+        <div id="printer-add-panel" style="display:none">
+            <form>
+                <div class="form-group">
+                    <input type="text" id="printer_name" class="form-control" value="" placeholder="Printer">
+                    <input type="text" id="printer_port" class="form-control" value="" placeholder="Port">
+                </div>
+
+
+                <div class="form-group">
+                    <button class="btn btn-default" onclick="renderer.cancel(event)">
+                        Cancel
+                    </button>
+                    <button class="btn btn-default pull-right" onclick="renderer.save(event)">
+                        Save
+                    </button>
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <footer class="toolbar toolbar-footer">
+        <div class="toolbar-actions">
+            <button class="btn btn-default" onclick="renderer.logout()">
+                Logout
+            </button>
+            <button class="btn btn-default pull-right" onclick="renderer.printers()">
+                Refresh
+            </button>
+        </div>
+    </footer>
+</div>
+
+
+</body>
+
+</html>
+
+<script>
+   const Printers = require('./renderers/Printers')
+   const renderer = new Printers()
+</script>
