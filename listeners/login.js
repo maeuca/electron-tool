@@ -1,25 +1,29 @@
 const electron = require('electron')
 const ipcMain = electron.ipcMain
 const auth = require('../lib/authSession')
+const debug = require('debug')('print:ipc')
 
 ipcMain.on('authenticate-request', function(event, data) {
     var network = data.network
-    console.log('authenticate start ' + data.username + ':' + data.password + '@' + data.network['network_name'])
+    debug('authenticate start ' + data.username + '@' + data.network['network_name'])
     global.authsession = new auth.AuthSession(data.username,data.password,data.network)
     global.authsession.authenticate()
     global.authsession.on('forward-ready', function() {
-        console.log('authenticate completed and forward is ready for requests')
         event.sender.send('authenticate-response', {status:'Session Ready'} )
     })
-
+    global.authsession.on('connection-error', function( error ) {
+        global.mainWindow.webContents.send('notify', {title:'Login Failed', message:error.status , info:'Connection Error', icon:'print-icon.png', page:'info'})
+    })
 })
 
 ipcMain.on('logout', function(event, data) {
-    console.log('logout')
+   debug('logout')
 
-    global.authsession.shutdown()
+    if ( global.authsession != null ) {
+        global.authsession.shutdown()
+        global.authsession = null
+    }
     global.mainWindow.webContents.loadURL("file://" + global.apphome + '/html/login.html', {})
-    global.authsession = null
 
 })
-console.log('login listener ready')
+debug('login listener ready')
