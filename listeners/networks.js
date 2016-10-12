@@ -9,7 +9,7 @@ ipcMain.on('networks-list', (event, data) => {
 
     debug('networks-list received')
     stor.get('networks').then(function (stordata ) {
-       global.mainWindow.webContents.send('networks', stordata)
+        global.mainWindow.webContents.send('networks', stordata)
    })
 })
 
