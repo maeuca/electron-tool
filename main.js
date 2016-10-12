@@ -1,10 +1,12 @@
 const electron = require('electron')
+// DEBUG=print:* npm start
+const debug = require('debug')('print:main')
 
 const ipcMain = electron.ipcMain
 const BrowserWindow = electron.BrowserWindow
 const headers = {}
 
-console.log('start up...')
+debug('start up...')
 
 global.apphome = process.cwd()
 global.authsession = null
@@ -15,28 +17,29 @@ require('./listeners/ipc')
 function createMainWindow(page) {
 
     global.mainWindow = new BrowserWindow({
-            width: 355,
+            width: 710,
             height: 600,
             backgroundColor: 'white',
             frame: true,
             transparent: false
     })
 
-    //global.mainWindow.webContents.openDevTools()
+    global.mainWindow.webContents.openDevTools()
     global.mainWindow.on('closed', function () {
-        console.log('closing')
+        debug('closing')
+        ipcMain.removeAllListeners()
         global.mainWindow = null
     })
     global.mainWindow.on('page-title-updated', function (event) {
-        console.log('page title is updated')
+        debug('page title is updated')
     })
 
     global.mainWindow.webContents.on('dom-ready', function (event) {
-        console.log('dom-ready event')
+        debug('dom-ready event')
         global.mainWindow.webContents.send('initialize')
     })
     global.mainWindow.webContents.on('did-finish-load', function (event) {
-        console.log('mainWindow did finish load')
+        debug('mainWindow did finish load')
     })
 
 
@@ -59,7 +62,7 @@ function appReady() {
 
     })
     createMainWindow('login')
-    console.log('appReady')
+    debug ('app ready')
 }
 
 
@@ -78,28 +81,21 @@ if ( shouldQuit ) {
 electron.app.on('ready', appReady)
 
 electron.app.on('activate', function() {
-    console.log('html is active')
+    debug('electron is active')
 })
 
 
 ipcMain.on('renderer-started', function(event, data) {
-    console.log('renderer-started received')
+    debug('renderer-started received')
 })
 
 
 ipcMain.on('load-content', function(event,data) {
     var hasSession =  (global.authsession == null) ? false: true
-    console.log('load-content received for ' + data.content + ' / ' + hasSession )
+    debug('load-content received for ' + data.content + ' / ' + hasSession )
     if ( hasSession && data.content === 'login' ) {
         data.content = 'printers'
     }
 
     global.mainWindow.webContents.loadURL("file://" + global.apphome + '/html/' + data.content + '.html', headers)
 })
-
-
-
-
-
-
-
