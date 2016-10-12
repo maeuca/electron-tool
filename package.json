@@ -7,6 +7,7 @@
     "start": "electron ."
   },
   "dependencies": {
+    "debug": "^2.2.0",
     "electron": "^1.4.1",
     "electron-notifications": "^0.1.1",
     "electron-packager": "^8.0.0",
