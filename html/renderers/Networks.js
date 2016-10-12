@@ -31,9 +31,7 @@ class Networks extends Renderer {
         })
 
         ipcRenderer.on('refresh', function(event,data) {
-
             refreshNetworksList()
-
         })
     }
 

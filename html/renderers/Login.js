@@ -10,8 +10,11 @@ class Login extends Renderer {
     constructor() {
         super()
         ipcRenderer.on('authenticate-response', function(event,data) {
-            console.log('authenticate-response received:' + data.status)
-            ipcRenderer.send('load-content',{content:'printers'})
+            if ( data.status=='Session Ready') {
+                console.log('authenticate-response received:' + data.status)
+                ipcRenderer.send('load-content',{content:'printers'})
+            }
+
         })
 
         ipcRenderer.on('initialize', function(event,data) {

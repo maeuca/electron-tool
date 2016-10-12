@@ -6,6 +6,7 @@ const remote = electron.remote
 const os = require('os')
 
 global.apphome = process.cwd()
+global.authtoken = null
 
 class Renderer {
     constructor() {
@@ -19,6 +20,9 @@ class Renderer {
         })
     }
 
+    notify( message ) {
+        showNotify(message)
+    }
 
     navigate( page ) {
         ipcRenderer.send('load-content',{content:page})
