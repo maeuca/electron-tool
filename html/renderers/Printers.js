@@ -11,13 +11,13 @@ class Printers extends Renderer {
     constructor() {
         super()
         console.log('renderers/printers required-' + ++counter)
-        ipcRenderer.on('initialize', function(event,data) {
+        ipcRenderer.on('initialize', (event,data) => {
             console.log('initialize received')
             refreshPrintersList()
         })
 
         // ipc events
-        ipcRenderer.on('printers', function(event,data) {
+        ipcRenderer.on('printers', (event,data) => {
 
             var data_obj = JSON.parse(data)
 
@@ -31,7 +31,7 @@ class Printers extends Renderer {
 
         })
 
-        ipcRenderer.on('refresh', function(event,data) {
+        ipcRenderer.on('refresh', (event,data) => {
 
             refreshPrintersList()
 
@@ -80,7 +80,7 @@ class Printers extends Renderer {
     filterRows( p_field ) {
 
         $jq('#printers-panel .list-group .list-group-item').remove()
-        $jq.each(printers_list, function(index,printer ) {
+        $jq.each(printers_list, (index,printer ) => {
             console.log('filter ' + printer.value['printer_name'] + ' with ' + printer.value['port'])
             console.log('matching name ' + p_field.value + ' with ' + printer.value['printer_name'] + ' or ' + printer.value['port'] )
             try {

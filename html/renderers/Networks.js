@@ -11,13 +11,14 @@ class Networks extends Renderer {
     constructor() {
         super()
         console.log('renderers/networks required-' + ++counter)
-        ipcRenderer.on('initialize', function(event,data) {
+
+        ipcRenderer.on('initialize', (event,data) => {
             console.log('initialize received')
             refreshNetworksList()
         })
 
         // ipc events
-        ipcRenderer.on('networks', function(event,data) {
+        ipcRenderer.on('networks', (event,data) => {
 
             networks = data
             console.log('networks data recevied: ' + JSON.stringify(networks))
@@ -30,7 +31,7 @@ class Networks extends Renderer {
 
         })
 
-        ipcRenderer.on('refresh', function(event,data) {
+        ipcRenderer.on('refresh', (event,data) => {
             refreshNetworksList()
         })
     }

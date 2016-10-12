@@ -30,18 +30,13 @@ function createMainWindow(page) {
         ipcMain.removeAllListeners()
         global.mainWindow = null
     })
-    global.mainWindow.on('page-title-updated', function (event) {
-        debug('page title is updated')
-    })
 
+
+    // Send the Initialze event to the Screen
     global.mainWindow.webContents.on('dom-ready', function (event) {
         debug('dom-ready event')
         global.mainWindow.webContents.send('initialize')
     })
-    global.mainWindow.webContents.on('did-finish-load', function (event) {
-        debug('mainWindow did finish load')
-    })
-
 
     global.mainWindow.webContents.loadURL("file://" + global.apphome + '/html/' + page + '.html', headers)
     global.mainWindow.show()

@@ -9,20 +9,19 @@ var networks = {}
 class Login extends Renderer {
     constructor() {
         super()
-        ipcRenderer.on('authenticate-response', function(event,data) {
+        ipcRenderer.on('authenticate-response', (event,data) => {
             if ( data.status=='Session Ready') {
                 console.log('authenticate-response received:' + data.status)
                 ipcRenderer.send('load-content',{content:'printers'})
             }
-
         })
 
-        ipcRenderer.on('initialize', function(event,data) {
+        ipcRenderer.on('initialize', (event,data) => {
             console.log('initialize received')
             ipcRenderer.send('networks-list')
         })
 
-        ipcRenderer.on('networks', function(event,data) {
+        ipcRenderer.on('networks', (event,data) => {
             networks = data
             var selectList = '<select id="network_name"><option value="null" selected>Select Network</option>'
             for ( var network_name in networks) {

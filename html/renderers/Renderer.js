@@ -11,24 +11,16 @@ global.authtoken = null
 class Renderer {
     constructor() {
         console.log ('new Renderer class')
-
         ipcRenderer.on('notify', function(event,message) {
-
             console.log('notify received for ' + message.info)
             showNotify(message)
 
         })
     }
 
-    notify( message ) {
-        showNotify(message)
-    }
-
     navigate( page ) {
         ipcRenderer.send('load-content',{content:page})
     }
-
-
 
    openFile () {
        remote.shell.showItemInFolder( os.homedir() )
@@ -54,7 +46,7 @@ var showNotify = function( message ) {
     notification.on('clicked',function() {
 
     })
-    notification.on('buttonClicked', function(button) {
+    notification.on('buttonClicked', (button) => {
         if ( button === 'Dismiss') {
             notification.close()
         } else if ( button === 'Info') {

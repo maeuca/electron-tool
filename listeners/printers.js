@@ -5,14 +5,14 @@ const debug = require('debug')('print:ipc')
 
 printerUtils.loadDriver('couch')
 
-ipcMain.on('printers-list', function(event, data) {
+ipcMain.on('printers-list', (event, data) => {
 
-    printerUtils.getPrinters( function(data) {
+    printerUtils.getPrinters( (data) => {
         global.mainWindow.webContents.send('printers', data)
     })
 })
 
-ipcMain.on('printer-delete', function(event, data) {
+ipcMain.on('printer-delete',(event, data) => {
 
     printerUtils.deletePrinter(data.printer_name, data.id, data.rev,  function(data) {
         debug(data.printer_name +' Deleted')
@@ -21,7 +21,7 @@ ipcMain.on('printer-delete', function(event, data) {
     })
 })
 
-ipcMain.on('printer-add', function(event, data) {
+ipcMain.on('printer-add', (event, data) => {
 
     printerUtils.addPrinter(data.printer_name, data.printer_port,  function(data) {
         debug(data.printer_name +' Added')

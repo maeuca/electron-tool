@@ -3,7 +3,7 @@ const ipcMain = electron.ipcMain
 const auth = require('../lib/authSession')
 const debug = require('debug')('print:ipc')
 
-ipcMain.on('authenticate-request', function(event, data) {
+ipcMain.on('authenticate-request', (event, data) => {
     var network = data.network
     debug('authenticate start ' + data.username + '@' + data.network['network_name'])
     global.authsession = new auth.AuthSession(data.username,data.password,data.network)
@@ -16,7 +16,7 @@ ipcMain.on('authenticate-request', function(event, data) {
     })
 })
 
-ipcMain.on('logout', function(event, data) {
+ipcMain.on('logout', (event, data) => {
    debug('logout')
 
     if ( global.authsession != null ) {

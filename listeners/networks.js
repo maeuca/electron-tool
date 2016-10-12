@@ -5,7 +5,7 @@ const debug = require('debug')('print:ipc')
 const ipcMain = electron.ipcMain
 
 
-ipcMain.on('networks-list', function(event, data) {
+ipcMain.on('networks-list', (event, data) => {
 
     debug('networks-list received')
     stor.get('networks').then(function (stordata ) {
@@ -13,15 +13,15 @@ ipcMain.on('networks-list', function(event, data) {
    })
 })
 
-ipcMain.on('network-delete', function(event, data) {
+ipcMain.on('network-delete', (event, data) => {
 
     var network_name = data.network_name
     debug('network-delete received for ' + network_name)
-    stor.get('networks').then(function (stordata ) {
+    stor.get('networks').then( (stordata ) => {
         delete stordata[data.network_name]
 
 
-        stor.set('networks', stordata, function(err) {
+        stor.set('networks', stordata, (err) => {
             if (err) {
                 debug('network-delete:error in stor.set networks:' + err)
             }
@@ -29,30 +29,30 @@ ipcMain.on('network-delete', function(event, data) {
             global.mainWindow.webContents.send('refresh')
 
         })
-    }).catch( function(err) {
+    }).catch( (err) => {
 
         debug('network-delete:error in stor.set networks:' + err)
     })
 })
 
-ipcMain.on('network-add', function(event, data) {
+ipcMain.on('network-add', (event, data) => {
 
     debug('network-add received: ' + JSON.stringify(data))
-    stor.get('networks').then(function (stordata ) {
+    stor.get('networks').then( (stordata ) => {
         stordata[data.network_name] = data
 
 
-        stor.set('networks', stordata, function(err) {
+        stor.set('networks', stordata, (err) => {
             if ( err) {
                 debug('network-add:error in stor.set networks:' + err)
             }
             global.mainWindow.webContents.send('notify', {title:'Network', message:data.network_name +' Added' ,icon:'print-icon.png'})
             global.mainWindow.webContents.send('refresh')
         })
-    }).catch( function(err) {
+    }).catch( (err) => {
         var networks = {}
         networks[data.network_name] = data
-        stor.set('networks', networks, function(err) {
+        stor.set('networks', networks, (err) => {
             if ( err) {
                 debug('network-add:error in stor.set networks:' + err)
             }
