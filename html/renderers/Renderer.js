@@ -34,6 +34,12 @@ class Renderer {
     }
 }
 
+Element.prototype.removeAll = function() {
+    while (this.firstChild) {
+        this.removeChild(this.firstChild)
+        return this
+    }
+}
 var showNotify = function( message ) {
 
     console.log('notify ' + global.apphome + '/' + message.icon)
