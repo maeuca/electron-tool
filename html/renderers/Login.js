@@ -29,7 +29,6 @@ class Login extends Renderer {
                 selectList += '<option value="'+ network_name + '">' + network_name + '</option>'
             }
             selectList += '</select>'
-
             $jq('#networks').html( selectList )
         })
 
