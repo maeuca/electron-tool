@@ -8,10 +8,10 @@ ipcMain.on('authenticate-request', function(event, data) {
     debug('authenticate start ' + data.username + '@' + data.network['network_name'])
     global.authsession = new auth.AuthSession(data.username,data.password,data.network)
     global.authsession.authenticate()
-    global.authsession.on('forward-ready', function() {
+    global.authsession.once('forward-ready', function() {
         event.sender.send('authenticate-response', {status:'Session Ready'} )
     })
-    global.authsession.on('connection-error', function( error ) {
+    global.authsession.once('connection-error', function( error ) {
         global.mainWindow.webContents.send('notify', {title:'Login Failed', message:error.status , info:'Connection Error', icon:'print-icon.png', page:'info'})
     })
 })
