@@ -12,7 +12,7 @@ global.apphome = process.cwd()
 global.authsession = null
 global.mainWindow = null
 
-require('./listeners/ipc')
+require('./channels/ipc')
 
 function createMainWindow(page) {
 
@@ -24,7 +24,7 @@ function createMainWindow(page) {
             transparent: false
     })
 
-    global.mainWindow.webContents.openDevTools()
+    //global.mainWindow.webContents.openDevTools()
     global.mainWindow.on('closed', function () {
         debug('closing')
         ipcMain.removeAllListeners()

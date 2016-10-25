@@ -1,0 +1,20 @@
+{
+  "private": true,
+  "name": "VCPrint-Tool",
+  "productName": "VCPrint-Tool",
+  "description": "Manager Printers",
+  "author": "Virtual Centric Software",
+  "version": "0.0.1",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "debug": "^2.2.0",
+    "electron-notifications": "^0.1.1",
+    "electron-storage": "^1.0.6",
+    "jquery": "^3.1.1",
+    "request": "^2.75.0",
+    "ssh2": "^0.5.2"
+  }
+}
