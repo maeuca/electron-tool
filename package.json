@@ -6,9 +6,10 @@
   "author": "Virtual Centric Software",
   "version": "0.0.1",
   "main": "main.js",
+  "postinstall": "install-app-deps",
   "scripts": {
     "start": "electron .",
-    "pack": "build --dir",
+    "pack": "build --dir --mac",
     "dist": "build"
   },
   "dependencies": {
@@ -26,7 +27,8 @@
   "build": {
     "appId": "vc.print.tool",
     "mac": {
-      "category": "virtualcommand.tools.printing"
+      "category": "virtualcommand.tools.printing",
+      "icon": "build/icon.icns"	
     }
   }
 }
