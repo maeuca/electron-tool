@@ -1,5 +1,4 @@
 'use strict'
-const $jq = global.jQuery = require('../js/jquery.min')
 const Renderer = require('./Renderer')
 const electron = require('electron')
 const ipcRenderer = electron.ipcRenderer
@@ -22,11 +21,11 @@ class Networks extends Renderer {
 
             networks = data
             console.log('networks data recevied: ' + JSON.stringify(networks))
-            $jq('#network-add-panel').css('display','none')
-            $jq('#networks-panel').css('display','block')
-            $jq('#network_name').val('')
-            $jq('#network_port').val('')
-            $jq('#networks_filter').val('')
+            jQuery('#network-add-panel').css('display','none')
+            jQuery('#networks-panel').css('display','block')
+            jQuery('#network_name').val('')
+            jQuery('#network_port').val('')
+            jQuery('#networks_filter').val('')
             displayRows(networks)
 
         })
@@ -38,38 +37,38 @@ class Networks extends Renderer {
 
     add(event) {
         event.preventDefault()
-        $jq('#networks-panel').css('display','none')
-        $jq('#network-add-panel').css('display','block')
+        jQuery('#networks-panel').css('display','none')
+        jQuery('#network-add-panel').css('display','block')
     }
 
     edit( network_name) {
 
         var network = networks[network_name]
         console.log('edit ' + network['network_name'] )
-        $jq('#networks-panel').css('display','none')
-        $jq('#network-add-panel').css('display','block')
-        $jq('#network_name').val(network['network_name'] )
-        $jq('#external_ip').val(network['external_ip'] )
-        $jq('#internal_ip').val(network['internal_ip'])
-        $jq('#service_port').val(network['service_port'])
-        $jq('#driver').val(network['driver'])
+        jQuery('#networks-panel').css('display','none')
+        jQuery('#network-add-panel').css('display','block')
+        jQuery('#network_name').val(network['network_name'] )
+        jQuery('#external_ip').val(network['external_ip'] )
+        jQuery('#internal_ip').val(network['internal_ip'])
+        jQuery('#service_port').val(network['service_port'])
+        jQuery('#driver').val(network['driver'])
     }
 
     cancel(event) {
         event.preventDefault()
-        $jq('#network-add-panel').css('display','none')
-        $jq('#networks-panel').css('display','block')
+        jQuery('#network-add-panel').css('display','none')
+        jQuery('#networks-panel').css('display','block')
     }
 
     save(event) {
         event.preventDefault()
         console.log('saving new network')
 
-        var network_name = $jq('#network_name').val()
-        var external_ip = $jq('#external_ip').val()
-        var internal_ip = $jq('#internal_ip').val()
-        var service_port = $jq('#service_port').val()
-        var driver = $jq('#driver').val()
+        var network_name = jQuery('#network_name').val()
+        var external_ip = jQuery('#external_ip').val()
+        var internal_ip = jQuery('#internal_ip').val()
+        var service_port = jQuery('#service_port').val()
+        var driver = jQuery('#driver').val()
 
         ipcRenderer.send('network-add', {
             network_name:network_name,
@@ -100,7 +99,7 @@ class Networks extends Renderer {
     }
     filterRows( p_field ) {
 
-        $jq('#networks-panel .list-group .list-group-item').remove()
+        jQuery('#networks-panel .list-group .list-group-item').remove()
         for ( var network_name in networks )
         {
             var network = networks[network_name]
@@ -108,7 +107,7 @@ class Networks extends Renderer {
             try {
                 var hasname = network_name.indexOf(p_field.value)
                 if ( hasname > -1 ) {
-                   $jq('#networks-panel .list-group').append( getListGroupItem( network ) )
+                    jQuery('#networks-panel .list-group').append( getListGroupItem( network ) )
                 }
             } catch(err) {
                 console.log('error at ' +  p_field.value + ' with ' + network_name)
@@ -122,7 +121,7 @@ class Networks extends Renderer {
 
 // Private Methpds
 function refreshNetworksList() {
-    $jq('#networks-panel .list-group .list-group-item').remove()
+    jQuery('#networks-panel .list-group .list-group-item').remove()
     ipcRenderer.send('networks-list')
 }
 
@@ -138,11 +137,11 @@ function getListGroupItem( network ) {
 
 
 function displayRows( rows ) {
-    $jq('#networks-panel .list-group .list-group-item').remove()
+    jQuery('#networks-panel .list-group .list-group-item').remove()
     for ( var network_name in rows )
     {
         var network = rows[network_name]
-        $jq('#networks-panel .list-group').append( getListGroupItem( network ) )
+        jQuery('#networks-panel .list-group').append( getListGroupItem( network ) )
     }
 }
 module.exports = Networks

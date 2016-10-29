@@ -5,6 +5,7 @@ const ipcRenderer = electron.ipcRenderer
 const remote = electron.remote
 const os = require('os')
 
+global.jQuery = require('../js/jquery.min')
 global.apphome = process.cwd()
 global.authtoken = null
 

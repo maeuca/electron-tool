@@ -1,5 +1,4 @@
 const os = require('os')
-const $jq = global.jQuery = require('../js/jquery.min')
 const electron = require('electron')
 const Renderer = require('./Renderer')
 const ipcRenderer = electron.ipcRenderer
@@ -29,14 +28,14 @@ class Login extends Renderer {
                 selectList += '<option value="'+ network_name + '">' + network_name + '</option>'
             }
             selectList += '</select>'
-            $jq('#networks').html( selectList )
+            jQuery('#networks').html( selectList )
 
             console.log('networks recevied:' + networks.length)
             if ( networks.length==0) {
                 document.getElementById(('login-button'))
-                $jq('#login-button').css('display','none')
+                jQuery('#login-button').css('display','none')
             } else {
-                $jq('#login-button').css('display','block')
+                jQuery('#login-button').css('display','block')
             }
         })
 

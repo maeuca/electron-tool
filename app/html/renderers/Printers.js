@@ -1,5 +1,5 @@
 'use strict'
-const $jq = global.jQuery = require('../js/jquery.min')
+
 const Renderer = require('./Renderer')
 const electron = require('electron')
 const ipcRenderer = electron.ipcRenderer
@@ -22,11 +22,11 @@ class Printers extends Renderer {
             var data_obj = JSON.parse(data)
 
             printers_list = data_obj.rows
-            $jq('#printer-add-panel').css('display','none')
-            $jq('#printers-panel').css('display','block')
-            $jq('#printer_name').val('')
-            $jq('#printer_port').val('')
-            $jq('#printers_filter').val('')
+            jQuery('#printer-add-panel').css('display','none')
+            jQuery('#printers-panel').css('display','block')
+            jQuery('#printer_name').val('')
+            jQuery('#printer_port').val('')
+            jQuery('#printers_filter').val('')
             displayRows(printers_list)
 
         })
@@ -40,22 +40,22 @@ class Printers extends Renderer {
 
     add(event) {
         event.preventDefault()
-        $jq('#printers-panel').css('display','none')
-        $jq('#printer-add-panel').css('display','block')
+        jQuery('#printers-panel').css('display','none')
+        jQuery('#printer-add-panel').css('display','block')
     }
 
     cancel(event) {
         event.preventDefault()
-        $jq('#printer-add-panel').css('display','none')
-        $jq('#printers-panel').css('display','block')
+        jQuery('#printer-add-panel').css('display','none')
+        jQuery('#printers-panel').css('display','block')
     }
 
     save(event) {
         event.preventDefault()
         console.log('saving new printer')
 
-        var printer_name = $jq('#printer_name').val()
-        var printer_port = $jq('#printer_port').val()
+        var printer_name = jQuery('#printer_name').val()
+        var printer_port = jQuery('#printer_port').val()
 
         ipcRenderer.send('printer-add', { printer_name:printer_name, printer_port:printer_port} )
     }
@@ -79,15 +79,15 @@ class Printers extends Renderer {
     }
     filterRows( p_field ) {
 
-        $jq('#printers-panel .list-group .list-group-item').remove()
-        $jq.each(printers_list, (index,printer ) => {
+        jQuery('#printers-panel .list-group .list-group-item').remove()
+        jQuery.each(printers_list, (index,printer ) => {
             console.log('filter ' + printer.value['printer_name'] + ' with ' + printer.value['port'])
             console.log('matching name ' + p_field.value + ' with ' + printer.value['printer_name'] + ' or ' + printer.value['port'] )
             try {
                 var hasname = printer.value['printer_name'].indexOf(p_field.value)
                 var hasport = printer.value['port'].indexOf(p_field.value)
                 if ( hasname > -1 || hasport > -1 ) {
-                   $jq('#printers-panel .list-group').append( getListGroupItem( index ) )
+                    jQuery('#printers-panel .list-group').append( getListGroupItem( index ) )
                 }
             } catch(err) {
                 console.log('error at ' +  p_field.value + ' with ' + printer.value['printer_name'] + ' or ' + printer.value['port'])
@@ -107,7 +107,7 @@ class Printers extends Renderer {
 
 // Private and mapped Methpds
 function refreshPrintersList() {
-    $jq('#printers-panel .list-group .list-group-item').remove()
+    jQuery('#printers-panel .list-group .list-group-item').remove()
     ipcRenderer.send('printers-list')
 }
 
@@ -121,9 +121,9 @@ function getListGroupItem( ndx  ) {
 
 
 function displayRows( rows ) {
-    $jq('#printers-panel .list-group .list-group-item').remove()
-    $jq.each(rows, function(index,printer ) {
-        $jq('#printers-panel .list-group').append( getListGroupItem( index ) )
+    jQuery('#printers-panel .list-group .list-group-item').remove()
+    jQuery.each(rows, function(index,printer ) {
+        jQuery('#printers-panel .list-group').append( getListGroupItem( index ) )
     })
 }
 
