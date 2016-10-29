@@ -30,6 +30,14 @@ class Login extends Renderer {
             }
             selectList += '</select>'
             $jq('#networks').html( selectList )
+
+            console.log('networks recevied:' + networks.length)
+            if ( networks.length==0) {
+                document.getElementById(('login-button'))
+                $jq('#login-button').css('display','none')
+            } else {
+                $jq('#login-button').css('display','block')
+            }
         })
 
     }

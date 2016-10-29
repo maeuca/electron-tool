@@ -1,11 +1,11 @@
 {
-  "private": true,
   "name": "VCPrint-Tool",
   "productName": "VCPrint-Tool",
   "description": "Manager Printers",
   "author": "Virtual Centric Software",
   "version": "0.0.1",
   "main": "main.js",
+  "postinstall": "install-app-deps",
   "scripts": {
     "start": "electron ."
   },

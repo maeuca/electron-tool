@@ -8,7 +8,7 @@ const headers = {}
 
 debug('start up...')
 
-global.apphome = process.cwd()
+global.apphome = __dirname
 global.authsession = null
 global.mainWindow = null
 
@@ -24,7 +24,7 @@ function createMainWindow(page) {
             transparent: false
     })
 
-    //global.mainWindow.webContents.openDevTools()
+   // global.mainWindow.webContents.openDevTools()
     global.mainWindow.on('closed', function () {
         debug('closing')
         ipcMain.removeAllListeners()
