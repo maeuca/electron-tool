@@ -7,7 +7,7 @@
   "main": "main.js",
   "postinstall": "install-app-deps",
   "scripts": {
-    "start": "electron ."
+    "start": "electron main.js"
   },
   "dependencies": {
     "debug": "^2.2.0",

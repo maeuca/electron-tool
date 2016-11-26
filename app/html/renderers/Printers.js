@@ -38,6 +38,13 @@ class Printers extends Renderer {
         })
     }
 
+    restart() {
+
+        if ( confirm('Restart Printers Service?') ) {
+            console.log( 'do delete')
+            ipcRenderer.send('restart-request')
+        }
+    }
     add(event) {
         event.preventDefault()
         jQuery('#printers-panel').css('display','none')

@@ -11,7 +11,10 @@ ipcMain.on('printers-list', (event, data) => {
         global.mainWindow.webContents.send('printers', data)
     })
 })
-
+ipcMain.on('restart-request', () => {
+    console.log('restart-request received')
+    global.authsession.execute('/NDI-Node/restartNDI.sh')
+})
 ipcMain.on('printer-delete',(event, data) => {
 
     printerUtils.deletePrinter(data.printer_name, data.id, data.rev,  function(data) {

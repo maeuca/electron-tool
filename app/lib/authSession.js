@@ -19,6 +19,16 @@ function AuthSession(username, password, network) {
         self.sshconnection.end()
     }
 
+    this.execute = function(command) {
+        self.sshconnection.exec(command, function(err,stream) {
+           stream.on('close', function(code,signal) {
+               console.log('execute :: close - ' + code + '/' + signal)
+           }).on('data', function(data) {
+               console.log('execute :: stdout - ' + data )
+           })
+
+        })
+    }
     this.authenticate = function() {
 
 
