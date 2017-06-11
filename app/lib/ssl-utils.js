@@ -1,10 +1,6 @@
 var https = require('https');
 var tunnel = require('./tunnel');
 var ndi = require('./ndi-api');
-// tunnel 3306 127.0.0.1:3306
-// Demo0:pass123
-// wsServerAddr, credentials, listen, forward
-// tunnel 3306 127.0.0.1:3306
 
 var tunnels = [];
 
