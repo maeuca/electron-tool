@@ -1,8 +1,8 @@
 {
-  "name": "VCPrint-Tool",
-  "productName": "VCPrint-Tool",
+  "name": "Electron-Print-Tool",
+  "productName": "Electron-Print-Tool",
   "description": "Manager Printers",
-  "author": "Virtual Centric Software",
+  "author": "Mark Cantrell",
   "version": "0.0.1",
   "main": "main.js",
   "postinstall": "install-app-deps",
